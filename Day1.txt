@@ -1,0 +1,42 @@
+create table Student(roll number(2),name varchar2(12),per number(5,2));
+
+
+describe student;
+
+insert into Student values(1,'shri',100);
+insert into Student values(2,'vaibhav',69);
+insert into Student values(3,'anand',10);
+insert into Student values(4,'raunak',59);
+insert into Student values(5,'xyz',15);
+insert into Student values(6,'pqr',55);
+
+
+select * from Student;
+
+select name,roll from Student;
+
+select roll,name,roll-per from Student;
+
+select roll,name,roll-per "Newvalue" from Student; 
+
+delete from Student where roll=1;
+
+delete from Student where name='xyz';
+
+
+delete from Student where name is null;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

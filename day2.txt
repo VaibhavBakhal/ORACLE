@@ -1,0 +1,72 @@
+create table product_detail(
+sno number(2) primary key,
+pid number (3),
+price number(4) not null,
+city varchar(15) default 'pune',
+foreign key(pid) references product1 (pid)
+);
+
+create table product1(
+pid number(3) primary key,
+name varchar2(15) not null,
+
+qty number(3) not null
+);
+
+insert into product1 values(11,'pencel',200);
+insert into product_detail(sno,pid,price) values(2,11,25);
+
+select product_detail.sno, product_detail.pid, product_detail.price, product_detail.city,product1.name, product1.qty from product1,product_detail where product1.pid=product_detail.pid;
+
+
+create table emp5(
+eno number(2) primary key,
+deptno number(5) not null,
+city varchar2(10) not null
+);
+
+create table emp_details
+(age number(2) ,
+ename varchar2(10) not null,
+empno number(2) not null,
+sno number(5) not null,
+foreign key(empno) references emp5(eno)
+); 
+ 
+
+insert into emp5 values(25,455,'pune');
+insert into emp_details values(55,'shri',25,1);
+
+
+select emp5.eno,emp5.deptno,emp5.city,emp_details.age,emp_details.ename,emp_details.empno,emp_details.sno from emp5,emp_details where emp5.eno=emp_details.empno;
+
+
+
+create table product(
+id number(5) primary key,
+qty number(10) not null,
+name varchar2(5));
+
+create table author (
+ano number(2) not null,
+author varchar2(20) not null,
+bkno number(2) primary key
+);
+
+create table book(
+srno number(2) primary key,
+bkno number(2) not null,
+bname varchar2(20) not null,
+ano number(2) not null,
+foreign key(bkno) references author(bkno)
+);
+
+
+insert  into book values(1,1,'HP-1',1);
+insert into book values(2,2,'HP-2',1);
+insert into book values(3,3,'Shivt-1',2);
+insert into book values(4,4,'Shivt-2',2);
+
+select book.srno,book.bkno,book.bname,book.ano,author.author from author,book;
+
+

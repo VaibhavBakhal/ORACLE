@@ -1,0 +1,88 @@
+1. Find sum and avg of sal and netsal for each job
+   net sal=sal+comm
+ select job, sum(sal),round(avg(sal),2),sum(sal+comm) from emp group by job;
+
+2. Find how many analysts are there in each department
+ select count(job) from emp where job='ANALYST';
+
+3. Find sum , average of salary for all employees whose sal> 1500 departmentwise
+select deptno,sum(sal),avg(sal) from emp where sal>1500 group by deptno;
+
+4. Find all salesman in each department
+select * from emp where job ='SALESMAN';
+
+5. to find how many employees are working under same manager;
+ select count(job) from emp where job='MANAGER';
+
+6. To find max, min and sum of salary for all employees whose sal > 1500 and < 3000
+ select max(sal),min(sal),sum(sal) from emp where sal>1500 and sal<3000
+
+7. Display all departments whose avg sal > 2000
+ select deptno from emp having avg(sal)>2000 group by deptno;
+
+8. Display all mgr under whom more than 2 analyst or salesman are working
+  select MGR from emp where job='ANALYST' or job='SALESMAN' having count(job)>2 group by MGR;
+
+9. Create new table emp10 same as emp without any data.
+   check it's structure.
+ create table emp101 as select * from emp where 1=2;
+
+10. Create new table dept100 having same structure and data as that of dept table.
+    Add primary key constraint on dno. check it's structure.
+ create table dept100 as select * from dept;
+ alter table dept100 add constraint pk_100 primary key(deptno);
+ 
+ 
+
+11.Create new table emp110 same as emp and store all employees working in dept 10.
+   Add primary key constraint on this table for eno. Add foreign key constraint on dno.
+   check it's structure.
+create table emp110 as select * from emp where deptno=10;
+ alter table emp110 add constraint pk_emp110 primary key(empno) ;
+alter table emp110 add constraint fk_emp110 foreign key (deptno) references dept100(deptno);
+
+
+12. insert new row in emp where manager is null.
+insert into emp(empno,ename,job,hiredate,sal,Deptno) values(7777,'VAIBHAV','ANALYST','08-JAN-2022',14000,20) where mgr is null;
+
+13. Display the emp details who do not have manager. 
+select * from emp where MGR is null;
+
+14.Write a query which will display name, department no and date of joining of all employees joined between
+  January 1, 1981 and March 31, 1983.
+    Sort it based on date of joining (ascending).
+select ename,deptno, hiredate from emp where hiredate>'1-jan=81' and hiredate<'31-mar-83' order by hiredate;
+
+
+15.List the details of the employee , whose names start with ‘A’ and end with ‘S’ or whose names contains N as 
+the second or third character,and end with either ‘N’ or ‘S’.
+
+select * from emp where regexp_like(ename,'^A.*S$|.N.*[NS]$|..N.*[NS]$');
+
+
+16.Display all employee names from emp table in the following format
+   Hello Allen .
+SELECT CONCAT('Hello ',ename) from emp;
+ 
+17. Create following tables for given schema.
+   table ===trainer(tid PK, tname, cid fk)
+create table trainer(
+tid number (3) primary key,
+tname varchar2(34),
+cid number(2) 
+);
+alter table trainer add constraint fk_101 foreign key(cid) references course(cid) on delete set null; 
+
+ table ==course(cid pk, cname)
+create table course(
+cid number(2) primary key,
+cname varchar2(34)
+);
+   1. insert 5 meaningful records in both the tables.
+insert into course values(1,'phy');
+insert into trainer values(1,'shri',1);
+   2. One subject can be handled by multiple trainers. (cid in trainer table may repeat)
+   3. Try on delete set null on trainer table.
+delete from trainer where cid=4;
+10. In the above course table , add new column fees.
+alter table course add fees number(5);
